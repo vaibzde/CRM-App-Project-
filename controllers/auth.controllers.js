@@ -46,6 +46,41 @@ exports.signup = async (req, res) => {
     }
 }
 
+<<<<<<< Updated upstream
 // exports.signin = async(req, res) => {
+=======
+exports.signin = async(req, res) => {
+    const user = await User.findOne({userId : req.body.userId})
+    console.log(user)
+    if(!user){
+        res.status(400).send({
+            message : "UserId, doesn't exist"
+        })
+        return
+    }
+
+    if(user.userStatus != constants.userStatus.approved){
+        res.status(403).send({
+            message : `Can't allow login as user is in status : [${user.userStatus}]`
+        })
+        return
+    }
+
+    let passwordIsValid = bcrypt.compareSync(
+        req.body.password, user.password
+    )
+
+    if(!passwordIsValid){
+        res.status(401).send({
+            accessToken : null,
+            message : "Wrong Password"
+        })
+        return
+    }
+
+    let token = jwt.sign({id : user.userId}, config.secret, {
+        expiresIn: 86400  // 24hrs
+    })
+>>>>>>> Stashed changes
 
 // }
