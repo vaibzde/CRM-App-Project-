@@ -46,7 +46,6 @@ exports.signup = async (req, res) => {
     }
 }
 
-<<<<<<< HEAD
 <<<<<<< Updated upstream
 // exports.signin = async(req, res) => {
 =======
