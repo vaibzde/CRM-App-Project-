@@ -4,6 +4,7 @@ const authController = require("./controllers/auth.controllers")
 const express = require('express')
 const User = require(`./models/user.model`)
 const bcrypt = require('bcryptjs')
+const constants = require("./utils/constants")
 const app = express()
 
 async function init() {
@@ -37,8 +38,10 @@ db.once("open", () => {
 })
 
 let authRouter = require(`./routes/auth.routes`)
-const constants = require("./utils/constants")
 authRouter(app)
+
+let userRouter = require("./routes/user.routes")
+userRouter(app)
 
 app.get("/", (req, res) => res.send("Hi"))
 
