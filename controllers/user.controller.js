@@ -26,9 +26,9 @@ const fetchByName = async (userNameReq, req) => {
     try {
         users = await User.find({
             name : userNameReq
-        })
+        });
     } catch(err) {
-        console.log("Error while fetching the users")
+        console.log("Error while fetching the user Name : ", userNameReq)
         res.status(500).send({
             message : "Some internal error occured"
         })
@@ -42,9 +42,9 @@ const fetchByTypeAndStatus = async (userTypeReq, userStatusReq, req) => {
         users = await User.find({
             userType: userTypeReq,
             userStatus: userStatusReq
-        })
+        });
     } catch(err) {
-        console.log("Error while fetching the users")
+        console.err(`Error while fetching the user for userType [${userTypeReq}] and userStatus [${userStatusReq}]`);
         res.status(500).send({
             message : "Some internal error occured"
         })
@@ -57,7 +57,7 @@ const fetchByType = async (userTypeReq, req) => {
     try {
         users = await User.find({
             userType: userTypeReq
-        })
+        });
     } catch(err) {
         console.log("Error while fetching the users")
         res.status(500).send({
@@ -74,7 +74,7 @@ const fetchByStatus = async (userStatusReq, req) => {
             userStatus: userStatusReq
         })
     } catch(err) {
-        console.log("Error while fetching the users")
+        console.log(`Error while fetching the user for userStatus [${userStatusReq}]`)
         res.status(500).send({
             message : "Some internal error occured"
         })
@@ -87,7 +87,7 @@ exports.findAll = async (req, res) => {
     let users
     let userTypeReq = req.query.userType
     let userStatusReq = req.query.userStatus
-    let userNameReq = req.query.na me 
+    let userNameReq = req.query.name
 
     if(userNameReq) {
         users = await fetchByName(userNameReq, res)
@@ -131,16 +131,23 @@ exports.update = async (req, res) => {
     try {
         const user = await User.findOneAndUpdate({
             userId: userIdReq
-        },{
+        }, {
             userStatus: req.body.userStatus
         }).exec() //exec() <- it will execute the code
-    res.status(200).send({
-        message : "User record has been updated successfully"
-    })
+    
+        if (user) {
+            res.status(200).send({
+                message: `User record has been updated successfully`
+            })
+        } else {
+            res.status(200).send({
+                message: `No user with id found!`
+            })
+        }
     } catch (err) {
-        console.error("Error while updating the record", err.message)
+        console.err("Error while updating the record", err.message)
         res.status(500).send({
-            message : "Some internal error occured"
+            message: "Some internal error occured"
         })
     }
 }

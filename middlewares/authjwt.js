@@ -13,27 +13,29 @@ const verifyToken = (req, res, next) => {
         })
     }
 
-    jwt.verify(token, authConfig.secret, (err, decoded) => {
-        if(err, decoded){
-            return res.status(401).send(
-                {
-                    message : "Unauthorized!"
-                }
-            )
-        }
-        req.body.userId = decoded.id
-        next()
-    })
+   
+    jwt.verify(token, authConfig.secret,
+        (err, decoded) => {
+            if (err) {
+                return res.status(401).send({
+                    message: "Unauthorized!"
+                })
+            }
+            req.body.userId = decoded.userId
+            next()
+        })
 }
+
 //middleware exist between routers and controllers..
 
 const isAdmin = async(req, res, next) => {
     const user = await User.findOne({
         userId: req.body.userId
     })
-    if(user && userTypes == constants.userTypes.admin){
+
+    if(user && userTypes == constants.userTypes.admin) {
         next();
-    }else {
+    } else {
         res.status(403).send({
             message: "Require Admin Role!"
         })

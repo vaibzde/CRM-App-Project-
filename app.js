@@ -9,10 +9,12 @@ const app = express()
 
 async function init() {
     let user = await User.findOne({userId : "admin"})
+
     if(user){
         console.log("Admin user already preasent")
         return
     }
+
     try{
         let user = await User.create({
             name: "Vaibhav",
@@ -30,6 +32,7 @@ async function init() {
 
 mongoose.connect(dbConfig.DB_URL)
 app.use(express.json())
+
 const db = mongoose.connection
 db.on("error", () => console.log("Can't connect to DB"))
 db.once("open", () => {

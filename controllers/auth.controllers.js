@@ -47,11 +47,12 @@ exports.signup = async (req, res) => {
 }
 
 exports.signin = async(req, res) => {
-    const user = await User.find({userId : req.body.userId})
-    console.log(user)
+    const user = await User.findOne({userId : req.body.userId})
+    console.log("Signin Request for ",user)
+    
     if(!user){
         res.status(400).send({
-            message : "UserId, doesn't exist"
+            message : "Failed! UserId, doesn't exist"
         })
         return
     }
@@ -64,18 +65,19 @@ exports.signin = async(req, res) => {
     }
 
     let passwordIsValid = bcrypt.compareSync(
-        req.body.password, user.password
+        req.body.password, 
+        user.password
     )
 
     if(!passwordIsValid){
         res.status(401).send({
-            accessToken : null,
-            message : "Wrong Password"
+           // accessToken : null,
+            message : "Invalid Password"
         })
         return
     }
 
-    let token = jwt.sign({id : user.userId}, config.secret, {
+    let token = jwt.sign({userId : user.userId}, config.secret, {
         expiresIn: 86400  // 24hrs
     })
 
