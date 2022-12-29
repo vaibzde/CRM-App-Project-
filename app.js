@@ -11,7 +11,7 @@ async function init() {
     let user = await User.findOne({userId : "admin"})
 
     if(user){
-        console.log("Admin user already preasent")
+        console.log("Admin user already present")
         return
     }
 
