@@ -46,6 +46,8 @@ authRouter(app)
 let userRouter = require("./routes/user.routes")
 userRouter(app)
 
+require("./routes/ticket.routes")(app)
+
 app.get("/", (req, res) => res.send("Hi"))
 
 app.listen(3000, () => console.log("Listening at localhost:3000"))

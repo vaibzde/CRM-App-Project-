@@ -11,3 +11,11 @@ exports.userResponse = (users) => {
     })
     return userResult
 }
+
+exports.ticketResponse = (ticket) => {
+    return {
+        title: ticket.title,
+        ticketPriority : ticket.ticketPriority,
+        
+    }
+}
