@@ -113,4 +113,10 @@ exports.getAllTickets = async (res, req) => {
 }
 
 
-exports.getOneTicket = async (res,req) => {}
+exports.getOneTicket = async (res,req) => {
+    const ticket = await Ticket.findOne({
+        _id: req.params.id 
+    })
+
+    res.status(200).send(objectConvertor.ticketResponse(ticket))
+}
