@@ -9,6 +9,7 @@
   "author": "Vaibhav Dewangan",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.18.2",
     "mongoose": "^6.8.2",
     "node-cron": "^3.0.2"
   }
