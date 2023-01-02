@@ -19,3 +19,11 @@ exports.ticketResponse = (ticket) => {
         
     }
 }
+
+exports.ticketListResponse = (tickets) => {
+    ticketResult = []
+    tickets.forEach(ticket => {
+        return ticketResult.push(exports.ticketResponse)
+        })
+        return ticketResult
+}

@@ -83,7 +83,34 @@ exports.updateTicket  = async (res,req) => {
 }
 
 
-exports.getAllTickets = async (res, req) => {}
+exports.getAllTickets = async (res, req) => {
+    /**
+     * use cases:
+     * - Admin : should get the list of all the tickets
+     * - customer: should get all the ticketscreated by him/her
+     * - Engineer: should get all the tickets assigned to him/her
+     */
+    const queryObj = {}
+
+    if(req.query.status != undefined) {
+        queryObj.status = req.query.status
+    }
+
+    const savedUser = await User.findOne({userId : req.body.userId })
+
+    if (savedUser.userType == constants.userTypes.customer) {
+        // Do anything
+    } else if (savedUser.userType == constants.userTypes.customer) {
+        queryObj.reporter = savedUser.userId
+    } else {
+        queryObj.assignee = savedUser.userId
+    }
+
+    const tickets = await Ticket.find(queryObj)
+    res.status(200).send(objectConvertor.ticketListResponse(tickets))
+
+
+}
 
 
 exports.getOneTicket = async (res,req) => {}
