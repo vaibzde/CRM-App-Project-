@@ -3,7 +3,8 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.8.0"
+    "mongoose": "^6.8.0",
+    "node-rest-client": "^3.1.1"
   },
   "name": "crm-app-project-",
   "description": "Building a CRM Application as my project. Building the database and APIs needed to run a CRM application that will help to manage all the business leads at one place and provide a complete picture of all customer interactions.",
