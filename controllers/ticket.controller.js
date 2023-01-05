@@ -119,4 +119,4 @@ exports.getOneTicket = async (res,req) => {
     })
 
     res.status(200).send(objectConvertor.ticketResponse(ticket))
-}
+} 
