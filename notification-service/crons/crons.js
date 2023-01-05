@@ -7,7 +7,7 @@ cron.schedule(`*/5 * * * * *`, async () => {
     })
 
     console.log(`Count of unsent notification: ${notifications.length}`)
-
+ 
     notifications.forEach(notifications => {
         const mailData = {
             from: `crm-notification-service@gmail.com`,//example,
